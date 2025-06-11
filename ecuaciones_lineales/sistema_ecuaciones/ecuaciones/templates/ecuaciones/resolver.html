@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resolver Sistema de Ecuaciones</title>
+</head>
+<body>
+    <h1>Laboratorio: Sistemas de Ecuaciones Lineales</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Resolver</button>
+    </form>
+
+    {% if resultado %}
+        <h2>Resultado:</h2>
+        <pre>{{ resultado }}</pre>
+    {% endif %}
+</body>
+</html>

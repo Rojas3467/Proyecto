@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistemas de Ecuaciones Lineales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:rgb(250, 208, 228);
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color:rgb(255, 198, 213);
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h3 {
+            text-align: center;
+        }
+
+        textarea, select, input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        pre {
+            background:rgb(248, 190, 190);
+            padding: 12px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Sistemas de Ecuaciones Lineales</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="sistema">Sistema de ecuaciones:</label>
+            <textarea name="sistema" rows="6" cols="50">{{ request.POST.sistema }}</textarea>
+
+            <label for="metodo">Método numérico:</label>
+            <select name="metodo">
+                <option value="gauss" {% if request.POST.metodo == "gauss" %}selected{% endif %}>Eliminación de Gauss</option>
+                <option value="gauss_jordan" {% if request.POST.metodo == "gauss_jordan" %}selected{% endif %}>Gauss-Jordan</option>
+                
+            </select>
+
+            <input type="submit" value="Resolver">
+        </form>
+<h3></h3>
+<ul>
+{% for item in historial %}
+    <li><b>{{ item.fecha }}</b>: {{ item.ecuaciones|linebreaksbr }} ({{ item.metodo }}) → {{ item.solucion }}</li>
+{% endfor %}
+</ul>
+
+        <h3>Resultado:</h3>
+        <p>{{ resultado }}</p>
+
+        {% if pasos %}
+            <h3>Pasos del método:</h3>
+            <pre>{{ pasos }}</pre>
+        {% endif %}
+
+        {% if grafico %}
+            <h3>Gráfico generado por el método</h3>
+            <img src="data:image/png;base64,{{ grafico }}" alt="Gráfico del método">
+        {% endif %}
+    </div>
+</body>
+</html>
