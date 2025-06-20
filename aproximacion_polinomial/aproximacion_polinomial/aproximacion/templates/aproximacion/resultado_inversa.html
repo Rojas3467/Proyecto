@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interpolación Inversa</title>
+    <style>
+        body {
+            font-family: Lucida Bright, sans-serif;
+            text-align: center;
+            background-color:rgb(243, 222, 242);
+            padding: 20px;
+        }
+        .contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .cuadro {
+            width: 60%;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .cuadro.valores {
+            background-color:rgb(204, 243, 250);
+            border-left: 5px solid #007bff;
+        }
+        .cuadro.polinomio {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+        }
+        .cuadro.pasos {
+            background-color:rgb(243, 205, 255);
+            border-left: 5px solid #ffc107;
+        }
+        img {
+            max-width: 80%;
+            height: auto;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Interpolación Inversa</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Calcular</button>
+    </form>
+
+    {% if resultado %}
+        <div class="contenedor">
+            <div class="cuadro valores">
+                <h3>Valores ingresados</h3>
+                <p><strong>Valores de Y:</strong> {{ resultado.valores_y }}</p>
+                <p><strong>Valores de X:</strong> {{ resultado.valores_x }}</p>
+            </div>
+
+            <div class="cuadro polinomio">
+                <h3>Polinomio inverso obtenido</h3>
+                <p><strong>Expresión:</strong> {{ resultado.polinomio_inverso }}</p>
+            </div>
+
+            <div class="cuadro pasos">
+                <h3>Pasos del cálculo</h3>
+                <ul>
+                    {% for paso in resultado.pasos %}
+                        <li><strong>{{ paso.nivel }}:</strong> {{ paso.explicacion }}</li>
+                        <ul>
+                            {% for valor in paso.valores %}
+                                <li>{{ valor }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if resultado.grafica %}
+                <h4>Gráfica del polinomio inverso</h4>
+                <img src="/static/aproximacion/{{ resultado.grafica }}" alt="Gráfica">
+            {% else %}
+                <p>No se generó una gráfica.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <a href="/">Volver</a>
+</body>
+</html>

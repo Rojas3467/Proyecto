@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Aproximación Polinomial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color:rgb(248, 213, 241);
+            padding: 20px;
+        }
+        .contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .cuadro {
+            width: 60%;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            background-color: white;
+        }
+        .titulo {
+            color:rgb(12, 12, 12);
+            font-size: 30px;
+        }
+        .descripcion {
+            font-size: 16px;
+            color: #555;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color:rgb(255, 0, 170);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color:rgb(187, 224, 245);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="titulo"> Aproximación Polinomial</h1>
+    
+    <div class="contenedor">
+        <div class="cuadro">
+            <h3>Interpolación de Newton</h3>
+            <p class="descripcion">
+                La interpolación de Newton es un método numérico que permite estimar valores de una función basada en puntos conocidos. 
+                Usa diferencias divididas para construir un polinomio que pase por los puntos dados.
+            </p>
+            <a href="{% url 'interpolacion' %}">Ir a Interpolación de Newton</a>
+        </div>
+
+        <div class="cuadro">
+            <h3>Interpolación Inversa</h3>
+            <p class="descripcion">
+                La interpolación inversa permite encontrar el valor de \( x \) correspondiente a un valor conocido de \( y \), invirtiendo la relación tradicional de interpolación.
+                Es útil en problemas donde se requiere determinar la variable independiente a partir de la dependiente.
+            </p>
+            <a href="{% url 'interpolacion_inversa' %}">Ir a Interpolación Inversa</a>
+        </div>
+    </div>
+</body>
+</html>
